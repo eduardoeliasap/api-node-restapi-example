@@ -13,8 +13,7 @@ export async function transactiosnRoutes(app: FastifyInstance) {
         const transactions = await knex('transactions').where('session_id', sessionId).select('*')
     
         return { 
-            total: 200,
-            transaction: transactions, }
+            transactions, }
     })
 
     app.get('/:id', {
@@ -28,15 +27,15 @@ export async function transactiosnRoutes(app: FastifyInstance) {
 
         const transaction = await knex('transactions').where('id', id).first()
     
-        return transaction
+        return { transaction }
     })
 
     app.get('/summary', {
         preHandler: [checkSessionIdExists]
     }, async () => {
-        const summay = await knex('transactions').sum('amount', { as: 'amount' }).first()
+        const summary = await knex('transactions').sum('amount', { as: 'amount' }).first()
 
-        return { summay }
+        return { summary }
     })
 
     app.post('/', async (request, reply) => {
