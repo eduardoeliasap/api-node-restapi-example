@@ -15,7 +15,7 @@ export const config: Knex.Config = {
             password: env.DATABASE_PASSWORD,
             connectionTimeoutMillis: 3000,
             keepAlive: true,
-            ssl: true,
+            ssl: false,
         },
     useNullAsDefault: true,
     migrations: {
