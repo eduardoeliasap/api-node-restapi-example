@@ -7,7 +7,16 @@ export const config: Knex.Config = {
     connection: env.DATABASE_CLIENT === 'sqlite' 
         ? {
             filename: env.DATABASE_URL
-        } : env.DATABASE_CLIENT,
+        } : {
+            host: env.DATABASE_URL,
+            port: env.DATABASE_PORT,
+            database: env.DATABASE_CLIENT,
+            user: env.DATABASE_USER,
+            password: env.DATABASE_PASSWORD,
+            connectionTimeoutMillis: 3000,
+            keepAlive: true,
+            ssl: true,
+        },
     useNullAsDefault: true,
     migrations: {
         extension: 'ts',
